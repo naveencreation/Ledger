@@ -1,0 +1,23 @@
+from sqlalchemy import Column, Integer, String, Float, DateTime
+from database import Base
+import enum
+from datetime import datetime
+
+class TransactionType(str, enum.Enum):
+    CREDIT = "CREDIT"
+    DEBIT = "DEBIT"
+
+class PaymentMode(str, enum.Enum):
+    CASH = "CASH"
+    CHEQUE = "CHEQUE"
+
+class Transaction(Base):
+    __tablename__ = "transactions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    transaction_type = Column(String, nullable=False)
+    name_or_purpose = Column(String, nullable=False)
+    amount = Column(Float, nullable=False)
+    payment_mode = Column(String, nullable=False)
+    reference_no = Column(String, nullable=False)
+    created_at = Column(DateTime, default=datetime.now, nullable=False)
